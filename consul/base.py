@@ -139,7 +139,9 @@ class Consul(object):
             scheme='http',
             consistency='default',
             dc=None,
-            verify=True):
+            auth=('',''),
+            verify=True
+            ):
         """
         *token* is an optional `ACL token`_. If supplied it will be used by
         default for all requests made with this client session. It's still
@@ -155,11 +157,13 @@ class Consul(object):
         By default the datacenter of the host is used.
 
         *verify* is whether to verify the SSL certificate for HTTPS requests
+
+        *auth* is whether to authenticate
         """
 
         # TODO: Status
 
-        self.http = self.connect(host, port, scheme, verify)
+        self.http = self.connect(host, port, scheme, auth, verify)
         self.token = token
         self.scheme = scheme
         self.dc = dc
