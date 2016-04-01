@@ -21,6 +21,7 @@ class HTTPClient:
             port=8500,
             scheme='http',
             loop=None,
+            auth=('', ''),
             verify=True):
         self.host = host
         self.port = port
@@ -77,8 +78,8 @@ class Consul(base.Consul):
         self._loop = loop or asyncio.get_event_loop()
         super().__init__(*args, **kwargs)
 
-    def connect(self, host, port, scheme, verify=True):
-        return HTTPClient(host, port, scheme, loop=self._loop, verify=verify)
+    def connect(self, host, port, scheme, auth, verify=True):
+        return HTTPClient(host, port, scheme, loop=self._loop, auth=auth, verify=verify)
 
     def close(self):
         """Close all opened http connections"""
